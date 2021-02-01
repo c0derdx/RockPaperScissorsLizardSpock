@@ -9,9 +9,11 @@
     <div class="score">
         <div class="player">
             <h3>Player</h3>
+            <p id="playerscore"></p>
         </div>
         <div class="Computer">
             <h3>Computer</h3>
+            <p id="computerscore"></p>
         </div>
     </div>
     <div class="battlefield">
@@ -19,12 +21,22 @@
         <img src="" alt="">
     </div>
     <div class="controls">
-        <img src="images/lizard.png" alt="" class="hands" onclick="">
-        <img src="images/paper.png" alt="" class="hands" onclick="">
-        <img src="images/rock.png" alt="" class="hands" onclick="">
-        <img src="images/scissors.png" alt="" class="hands" onclick="">
-        <img src="images/spock.png" alt="" class="hands" onclick="">
     </div>
+            var computer = Math.floor(Math.random()*5) + 1;
+            console.log("The value of computer is " + computer);
+            if (computer == 1 && choice == 2 || computer == 1 && choice == 5 || computer == 2 && choice == 3 || computer == 2 && choice == 5 || computer == 3 && choice == 4 || computer == 3 && choice == 1 || computer == 4 && choice == 5 || computer == 4 && choice == 2 || computer == 5 && choice == 4 || computer == 5 && choice == 3 ) {
+                computerscore++;         
+            }else if (computer == choice) {
+                console.log("Tie");
+            } else {
+                playerscore++;
+            }
+            document.getElementById("playerscore").innerHTML = playerscore;
+            document.getElementById("computerscore").innerHTML = computerscore;
+            console.log("The playerscore is " + playerscore);
+            console.log("The computerscore is " + computerscore);
+        }
+    </script>
     </body>
 <style>
     *{
@@ -59,9 +71,4 @@
         cursor: pointer;
     }
 </style>
-<script>
-    function name(params) {
-        
-    }
-</script>
 </html>
