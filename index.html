@@ -21,7 +21,17 @@
         <img src="" alt="">
     </div>
     <div class="controls">
+        <img src="images/lizard.png" alt="" class="hands" onclick="player(1)">
+        <img src="images/paper.png" alt="" class="hands" onclick="player(2)">
+        <img src="images/rock.png" alt="" class="hands" onclick="player(3)">
+        <img src="images/scissors.png" alt="" class="hands" onclick="player(4)">
+        <img src="images/spock.png" alt="" class="hands" onclick="player(5)">
     </div>
+    <script>
+        var playerscore = 0;
+        var computerscore = 0;
+        function player(choice) {
+            console.log("the value of choice is " + choice);
             var computer = Math.floor(Math.random()*5) + 1;
             console.log("The value of computer is " + computer);
             if (computer == 1 && choice == 2 || computer == 1 && choice == 5 || computer == 2 && choice == 3 || computer == 2 && choice == 5 || computer == 3 && choice == 4 || computer == 3 && choice == 1 || computer == 4 && choice == 5 || computer == 4 && choice == 2 || computer == 5 && choice == 4 || computer == 5 && choice == 3 ) {
