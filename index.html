@@ -6,46 +6,102 @@
     <title>Rock Paper Scissors Lizard Spock</title>
 </head>
 <body>
-    <div class="score">
-        <div class="player">
-            <h3>Player</h3>
-            <p id="playerscore"></p>
+    <div class="intro">
+        <h1>Welcome to the game of Rock, Paper, Scissors, Lizard and Spock</h1>
+        <h2>Rules:</h2>
+        <p>Lizard bites Paper and Spock.</p>
+        <p>Paper covers Rock and disproves Spock.</p>
+        <p>Rock breaks Scissors and crushes Lizard.</p>
+        <p>Scissors cuts Paper and Lizard.</p>
+        <p>Spock crushes Rock and Scissors.</p>
+        <button onclick="start()">Play</button>
+    </div>
+    <div class="all">
+        <div class="score">
+            <div class="Computer">
+                <h1>Computer</h1>
+                <p id="computerscore">0</p>
+                <img class="battlehands" id="computerhand" src="images/rock.png" alt="">
+            </div>
+            <div class="player">
+                <h1>Player</h1>
+                <p id="playerscore">0</p>
+                <img class="battlehands" id="playerhand" src="images/rock.png" alt="">
+            </div>
         </div>
-        <div class="Computer">
-            <h3>Computer</h3>
-            <p id="computerscore"></p>
+    
+        <div class="controls">
+            <img src="images/lizard.png" alt="" class="hands" onclick="game('lizard')">
+            <img src="images/paper.png" alt="" class="hands" onclick="game('paper')">
+            <img src="images/rock.png" alt="" class="hands" onclick="game('rock')">
+            <img src="images/scissors.png" alt="" class="hands" onclick="game('scissors')">
+            <img src="images/spock.png" alt="" class="hands" onclick="game('spock')">
         </div>
     </div>
-    <div class="battlefield">
-        <img src="" alt="">
-        <img src="" alt="">
-    </div>
-    <div class="controls">
-        <img src="images/lizard.png" alt="" class="hands" onclick="player(1)">
-        <img src="images/paper.png" alt="" class="hands" onclick="player(2)">
-        <img src="images/rock.png" alt="" class="hands" onclick="player(3)">
-        <img src="images/scissors.png" alt="" class="hands" onclick="player(4)">
-        <img src="images/spock.png" alt="" class="hands" onclick="player(5)">
-    </div>
+    
     <script>
+        function start() {
+            // document.getElementsByClassName('intro')[0].style.zIndex = -1;
+            document.getElementsByClassName('intro')[0].style.opacity = 0;
+            document.getElementsByClassName('intro')[0].style.pointerEvents = 'none';
+        }
         var playerscore = 0;
         var computerscore = 0;
-        function player(choice) {
-            console.log("the value of choice is " + choice);
-            var computer = Math.floor(Math.random()*5) + 1;
-            console.log("The value of computer is " + computer);
-            if (computer == 1 && choice == 2 || computer == 1 && choice == 5 || computer == 2 && choice == 3 || computer == 2 && choice == 5 || computer == 3 && choice == 4 || computer == 3 && choice == 1 || computer == 4 && choice == 5 || computer == 4 && choice == 2 || computer == 5 && choice == 4 || computer == 5 && choice == 3 ) {
-                computerscore++;         
-            }else if (computer == choice) {
-                console.log("Tie");
-            } else {
-                playerscore++;
+        function game(playerchoice) {
+            //let us declare everythiung related to our player
+            let playerhand = document.querySelector('#playerhand');
+            playerhand.src = 'images/' + playerchoice + '.png';
+            
+            console.log('playerchoice is ' + playerchoice);
+
+            //now declaring everything related to computer
+            let computerchoice = ['lizard','paper', 'rock', 'scissors', 'spock'];
+            let computernumber = Math.floor(Math.random()*5);
+            let computerhand = document.querySelector('#computerhand');
+            computerhand.src = 'images/' + computerchoice[computernumber] + '.png';
+            
+            console.log('computerchoice is ' + computerchoice[computernumber]);
+
+
+            if (computerchoice[computernumber] == 'lizard' && playerchoice == 'paper' || computerchoice[computernumber] == 'lizard' && playerchoice == 'spock' || computerchoice[computernumber] == 'paper' && playerchoice == 'rock' || computerchoice[computernumber] == 'paper' && playerchoice == 'spock' || computerchoice[computernumber] == 'rock' && playerchoice == 'scissors' || computerchoice[computernumber] == 'rock' && playerchoice == 'lizard' || computerchoice[computernumber] == 'scissors' && playerchoice == 'lizard' || computerchoice[computernumber] == 'scissors' && playerchoice == 'paper' || computerchoice[computernumber] == 'spock' && playerchoice == 'scissors' || computerchoice[computernumber] == 'spock' && playerchoice == 'rock' ) {
+                console.log('computer wins');
+                computerscore++;
+                document.getElementById('computerscore').innerHTML = computerscore;                
             }
-            document.getElementById("playerscore").innerHTML = playerscore;
-            document.getElementById("computerscore").innerHTML = computerscore;
-            console.log("The playerscore is " + playerscore);
-            console.log("The computerscore is " + computerscore);
+            else if (computerchoice[computernumber] == playerchoice)
+            {
+                console.log('Tie');
+            } 
+            else {
+                console.log('playerwins');
+                playerscore++;
+                document.getElementById('playerscore').innerHTML = playerscore;    
+            }
+            
+            console.log('computerscore is ' + computerscore);
+            console.log('playerscore is ' + playerscore);
+
+            checkWinner();            
         }
+
+        checkWinner = () => {
+            if (computerscore == 10) {
+                computerscore = 0;
+                playerscore = 0;
+                document.getElementById('playerscore').innerHTML = playerscore;
+                document.getElementById('computerscore').innerHTML = computerscore; 
+                alert('You lose');
+            } else if (playerscore == 10) {
+                computerscore = 0;
+                playerscore = 0;
+                alert('you won');
+                document.getElementById('computerscore').innerHTML = computerscore;
+                document.getElementById('playerscore').innerHTML = playerscore;
+            } else {
+                return;
+            }
+        };
+
     </script>
     </body>
 <style>
@@ -53,6 +109,57 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+        /* text-align: center; */
+        font-family: sans-serif;
+        
+    }
+
+
+    body {
+        position: relative;
+        background-color:  #ffe227;
+
+    }
+
+
+    .intro {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        opacity: 1;
+        transition: opacity ease 2s;
+        background-color: #ffe227;
+        text-align: center;
+        padding-top: 200px;
+    }
+
+
+    .intro p, .intro h2 {
+        text-align: left;
+        display: block;
+        width: 53%;
+        margin: 0 auto;
+    }
+
+
+    button {
+        border: 2px solid black;
+        border-radius: 5px;
+        padding: 5px 20px;
+        outline: none;
+        background-color: rgb(230, 47, 184);
+        font-size: 20px;
+        font-weight: bold;
+        color: rgb(44, 43, 43);
+    }
+
+
+    .all {
+        background-color:  #ffe227;
+        height: 100%;
     }
 
 
@@ -60,6 +167,30 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
         text-align: center;
+    }
+
+
+    p {
+        font-size: 30px;
+    }
+
+
+    .battlefield {
+        display: flex;
+        width: 80%;
+        justify-content: space-between;
+        margin: 0 auto;
+    }
+
+
+    .battlehands {
+        width: 25%;
+        margin: 5rem;
+    }
+
+
+    #playerhand {
+        transform: rotateY(180deg);
     }
 
 
@@ -74,8 +205,8 @@
 
 
     .hands {
-        filter: drop-shadow(0 0 0.75rem red);
-        width: 30%;
+        filter: drop-shadow(0 0 0.75rem #c835ec);
+        width: 10%;
         max-width: 200px;
         margin: 1rem;
         cursor: pointer;
